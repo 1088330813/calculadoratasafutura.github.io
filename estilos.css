@@ -67,7 +67,7 @@ margin-right: 2.2rem;
 
         padding: 1rem;
         background-color: var(--primary-color);
-        background: url('img/bg.jpg');
+        background-image: url('img/bg.jpg');
         background-size: cover;
         width: 700px;
         opacity: 95%;
