@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Tasa Futura 3.0</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="./estilos.css">
+    <link rel="icon" href="./img/logodolar.png.png">
+    <link rel="stylesheet" type="text/css" href="DataTables-1.12.0/css/dataTables.bootstrap4.min.css"/>
+    <link rel="stylesheet" type="text/css" href="Buttons-2.2.3/css/buttons.bootstrap4.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/vue-currency-filter"></script>
+
+    <!-- <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>
+   <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css"/> -->
+</head>
+<body>
+    <header>
+
+    </header >
+
+            <div id="app">
+        <main class="general">
+            <section class="seccion-general">
+            <section class="contenedor-general-izquierdo">
+                <section class="titulo-ingreso-datos">
+                    <h1 id="title-result">Ingrese los datos</h1>
+                </section>
+                <section class="check-calculo-dias">
+                    <div class="custom-control custom-checkbox">
+                        <input type="radio" value="true" class="custom-control-input" id="checkbox1" name="radios" v-model="calcularPorFechas" @click="cambiarTipoFechas">
+                        <label for="checkbox1" class="custom-control-label">Fechas</label>
+                        <input type="radio" value="true" class="custom-control-input" id="checkbox2" name="radios" v-model="calcularPorDias" @click="cambiarTipoDias">
+                        <label for="checkbox2" class="custom-control-label">Días</label>           
+                    </div>
+                </section>
+                <section class="seccion-izquierda-alta">
+                    <section class="rango-fechas" v-if="calcularPorFechas">
+                        <!-- <label for="dateInicial">Fecha Inicial</label> -->
+                        <input type="date" id="dateInicial" v-model="dateInicial"/>
+                        <!-- <label for="dateFinal" >Fecha Final</label> -->
+                        <input type="date" id="dateFinal" v-model="dateFinal"/>
+                    </section>
+                    <section class="tasas-devaluacion">
+                        <!-- <label for="rateSpot">Tasa Spot</label> -->
+                        <input id="input-numero" type="number" id="rateSpot" placeholder="Tasa Spot" v-model="rateSpot"/>
+                        <!-- <label for="devaluation" >Devaluación</label> -->
+                        <input id="input-numero" type="number" id="devaluation" placeholder="Devaluación" v-model="devaluation" />
+                    </section>
+                    <section class="dias-dados" v-if="calcularPorDias">
+                        <!-- <label for="diasDados">Días</label> -->
+                        <input id="input-numero" type="number" id="diasDados" placeholder="Días" v-model="diasDados"/>
+                    </section>
+                </section>   
+                <section class="seccion-izquierda-baja-figura-movimiento">
+                    <nav>
+                        <ul class="nav-central-section">
+                            <li>
+                                <a href="">
+                                    <img src="./logodolar.png.png" alt="imagen de login gmail">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <h1>Calculadora de TASA futura 3.0</h1>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                  
+                    <!-- <div id="cuadrado-1">
+                        <img class="imagen-movimiento" src="./img/logodolar.png.png" alt="imagen de login gmail">
+                    </div> -->
+                
+                </section>
+                
+                <section class="boton-central">
+                    <input type="submit"  @click="ponerDatos"></input>
+                    <span></span>
+                </section>
+                   </section>
+                <section class="contenedor-general-derecho">
+                <section class="titulo-resultados">
+                    <h1 id="title-result">Resultado</h1>
+                </section>
+                <section class="contenedor-exterior-tabla">
+                  <section class="tabla-resultados">
+                    <table id="tabla" class="table table-light table-striped" style="width:100%;text-align: center">
+                        <thead>
+                        <tr>
+                            <th>Fecha Incial</th>
+                            <th>Fecha Final</th>
+                            <th>Días</th>
+                            <th>Dev</th>
+                            <th>Spot</th>
+                            <th>Strike</th>
+                            <th>Monto USD</th>
+                            <th>Banco</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="info of informacion" v-if="info.iDias>0">
+                            <td>
+                            {{info.iFechaInicial}} 
+                            </td>
+                            <td>
+                           {{info.iFechaFinal}}
+                            </td> 
+                            <td>
+                            {{info.iDias}}
+                            </td>
+                            <td>
+                              {{info.iDevaluacion}}
+                            </td>
+                            <td>
+                             {{info.iSpot|currency}}
+                            </td>
+                            <td style="font-weight: bolder;">
+                             {{info.iStrike|currency}}
+                            </td>
+                            <td style="text-align:center;color: #212529;font-size: 0.1px ;" >
+                                {{info.iMonto|currency}}
+                                <input id="input-montousd" type="number" v-model.number="info.iMonto">  
+                            </td>
+                            <td style="text-align:center;color: #212529;font-size: 0.1px ;" >
+                                {{info.iBanco}}
+                                <input id="input-bancos" type="" list="inputbancos" v-model.number="info.iBanco">
+
+                                <datalist id="inputbancos">
+                                  <option value="AV VILLAS">
+                                  <option value="BANCO AGRARIO">
+                                  <option value="BANCO BBVA">
+                                  <option value="BANCO CORPBANCA">
+                                  <option value="BANCO DE BOGOTA">
+                                    <option value="BANCO DE OCIDENTE">
+                                        <option value="BANCOLOMBIA">
+                                        <option value="CAJA SOCIAL">
+                                        <option value="COLPATRIA">
+                                        <option value="CONFIRCOLOMBIANA">
+                                        <option value="CORREDORES DAVIVIENDA">
+                                        <option value="CREDICORP">
+                                        <option value="DAVIVIENDA">
+                                        <option value="GNB SUDAMERIS">
+                                        <option value="PICHINCHA">
+                                      
+                                </datalist>
+                            </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </section>
+                <h3 style="text-align:center;color: rgb(255, 255, 255);font-size: 2.1rem;">Total:USD {{sumarFrutas|currency}}</h3>
+            </section>
+                <section class="contenedor-exportar">
+                <div class="exportar-pdf">
+
+                </div>
+                <div class="exportar-excel">
+                    <button id="exportarExcel" class="btn btn-success">
+                        <i class="fas fa-file-excel"></i> Exportar datos a Excel
+                    </button>
+        
+                </div>
+                </section>
+        </section>
+    </section>
+    </main>
+        </div>
+        <!-- </form> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
+
+       
+    <!-- <script src="//code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="//code.jquery.com/jquery-3.5.1.js"></script> 
+    <script src="//cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script> 
+    <script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script> 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script> 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script> 
+    <script src="//cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script> 
+    <script src="//cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>  -->
+
+    <script src="descuentos.js"></script>
+    <script src="exportarexcel.js"></script>
+    <script src="currency.js"></script>
+    <script>
+    </script>
+</body>
+<!-- JavaScript Bundle with Popper -->
+
+
+</html>
