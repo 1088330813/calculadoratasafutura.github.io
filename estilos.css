@@ -76,7 +76,7 @@ height: 50%;  } */
 
         padding: 1rem;
         background-color: var(--primary-color);
-        background: url(/bg.jpg);
+        background: url(/img/bg.jpg);
         background-size: cover;
         width: 700px;
        opacity: 95%;
