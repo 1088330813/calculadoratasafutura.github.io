@@ -38,6 +38,10 @@ this.fechaFinalMostrar = "";
 this.fechaInicialMostrar = "";
 
 },
+eliminar: function(index){
+  this.informacion.splice(index,1);
+  localStorage.setItem('calculos-data',JSON.stringify(this.informacion));
+  },
 cambiarTipoFechas(){
   this.calcularPorDias = false;
   this.diasDados = "";
@@ -104,7 +108,17 @@ agregarNuevaInfo(fechai,fechaf,dias, deva, tasaSp, tasaSt) {
     iMonto: 0,
     iBanco:"",
     });
+    console.log(this.informacion)
+    localStorage.setItem('calculos-data',JSON.stringify(this.informacion));
     },
+    created(){
+      let datosDB = JSON.parse(localStorage.getItem('calculos-data'));
+      if(datosDB === null){
+          this.informacion = [];
+      }else{
+          this.informacion = datosDB;
+      }
+      },
     },
     computed:{
       sumarFrutas(){
@@ -116,4 +130,3 @@ agregarNuevaInfo(fechai,fechaf,dias, deva, tasaSp, tasaSt) {
       }
     },
     });
-
