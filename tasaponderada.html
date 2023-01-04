@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./estilos.css">
+    <script src="https://unpkg.com/vue-currency-filter"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+<body>
+    <div id="app">
+        <section class="contenedorGeneralTasaPonderada" style="border-radius: 25px 25px 25px 25px">
+            <table class="table table-primary table-striped" style="width:100%;text-align: center">
+                <tr>
+                    <th>FWD</th>
+                    <th>Spot</th>
+                    <th>TRM</th>
+                </tr>
+                <tr>
+                    <td><input placeholder="Tasa FWD" id="input-numero" type="number" v-model="tasafwd"><br><input placeholder="$"  id="input-numero" type="number" v-model="valorfwd"></td>
+                    <td><input placeholder="Tasa SPOT" id="input-numero" placeholder="Tasa Spot" type="number" v-model="tasaspot"><br><input placeholder="$" id="input-numero" type="number" v-model="valorspot"></td>
+                    <td><input placeholder="Tasa TRM" id="input-numero" type="number" v-model="tasatrm"><br><input placeholder="$" id="input-numero" type="number" v-model="valortrm"></td>
+        
+                </tr>
+            </table>     
+            <section class="seccionBotones">
+                <input style="width: 5rem; height: 3rem; font-size: 1.3rem;" type="button" value="Volver" class="btn btn-primary" onClick="history.go(-1);">
+            </section> 
+        </section>
+        <h1 v-if='tasafwd !="" || tasaspot !="" || tasatrm !=""'>Resultado: {{ tasaPonderadaCalculo.toFixed(2)|currency }}</h1>
+       </div>
+        <!-- <ul>
+            <li >
+                
+                {{articulo.nombre}} - {{articulo.vereda}}  
+                 <span v-if="articulo.cantidad >0 ">{{'- Hay Stock'}}</span>
+    
+        </ul>
+            <input type="text" v-model="nuevaFruta">
+        <button v-on:click="agregarFruta">Agregar</button> -->
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="tasaponderada.js"></script>
+    <script src="currency.js"></script>
+</body>
+</html>
