@@ -98,7 +98,7 @@ margin-right: 2.2rem;
         position: relative;
         display: flex;
         order: 2;
-       align-items: flex-start;
+        align-items: flex-start;
         align-content: flex-start;
         box-shadow: 5px 5px 10px var(--primary-color);
         border-radius: 20px;
@@ -266,7 +266,7 @@ margin-right: 2.2rem;
 }
 #input-bancos{
     background: var(--third-color);
-    width: 110px;
+    width: 115px;
     height: 20px;
     border: none;
     outline: none;
