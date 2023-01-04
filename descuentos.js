@@ -81,11 +81,11 @@ cambiarTipoFechas(){
           this.fechaInicialMostrar = new Date(this.anyoInicial,this.mesInicial,this.diaInicial).toLocaleDateString('es-CO', {
             day: '2-digit',
             month: '2-digit',
-            year: 'numeric',});
+            year: '2-digit',});
             this.fechaFinalMostrar = new Date(this.anyoFinal,this.mesFinal,this.diaFinal).toLocaleDateString('es-CO', {
               day: '2-digit',
               month: '2-digit',
-              year: 'numeric',});
+              year: '2-digit',});
        
         this.numDiasPositivo = this.totalRestasFechas / (1000 * 3600 * 24);
         this.calculationRateStrike(this.rateSpot, this.devaluation, this.numDiasPositivo );
