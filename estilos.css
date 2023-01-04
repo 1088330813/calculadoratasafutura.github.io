@@ -263,7 +263,7 @@ margin-right: 2.2rem;
 }
 #input-bancos{
     background: var(--third-color);
-    width: 129px;
+    width: 110px;
     height: 20px;
     border: none;
     outline: none;
@@ -273,7 +273,7 @@ margin-right: 2.2rem;
 }
     #input-montousd{
         background: var(--third-color);
-        width: 84px;
+        width: 80px;
         height: 20px;
         border: none;
         outline: none;
