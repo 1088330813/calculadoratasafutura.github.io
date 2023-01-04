@@ -9,7 +9,7 @@
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" href="./estilos.css">
-    <link rel="icon" href='img/logodolar.png.png'>
+    <link rel="icon" href="./img/logodolar.png.png">
     <link rel="stylesheet" type="text/css" href="DataTables-1.12.0/css/dataTables.bootstrap4.min.css"/>
     <link rel="stylesheet" type="text/css" href="Buttons-2.2.3/css/buttons.bootstrap4.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -41,19 +41,19 @@
                 <section class="seccion-izquierda-alta">
                     <section class="rango-fechas" v-if="calcularPorFechas">
                         <!-- <label for="dateInicial">Fecha Inicial</label> -->
-                        <input type="date" id="dateInicial" v-model="dateInicial"/>
+                        <input type="date" id="dateInicial" v-model="dateInicial" v-on:keyup.enter="ponerDatos"/>
                         <!-- <label for="dateFinal" >Fecha Final</label> -->
-                        <input type="date" id="dateFinal" v-model="dateFinal"/>
+                        <input type="date" id="dateFinal" v-model="dateFinal" v-on:keyup.enter="ponerDatos"/>
                     </section>
                     <section class="tasas-devaluacion">
                         <!-- <label for="rateSpot">Tasa Spot</label> -->
-                        <input id="input-numero" type="number" id="rateSpot" placeholder="Tasa Spot" v-model="rateSpot"/>
+                        <input id="input-numero" type="number" id="rateSpot" placeholder="Tasa Spot" v-model="rateSpot" v-on:keyup.enter="ponerDatos"/>
                         <!-- <label for="devaluation" >Devaluación</label> -->
-                        <input id="input-numero" type="number" id="devaluation" placeholder="Devaluación" v-model="devaluation" />
+                        <input id="input-numero" type="number" id="devaluation" placeholder="Devaluación" v-model="devaluation" v-on:keyup.enter="ponerDatos" />
                     </section>
                     <section class="dias-dados" v-if="calcularPorDias">
                         <!-- <label for="diasDados">Días</label> -->
-                        <input id="input-numero" type="number" id="diasDados" placeholder="Días" v-model="diasDados"/>
+                        <input id="input-numero" type="number" id="diasDados" placeholder="Días" v-model="diasDados" v-on:keyup.enter="ponerDatos"/>
                     </section>
                 </section>   
                 <section class="seccion-izquierda-baja-figura-movimiento">
@@ -61,7 +61,7 @@
                         <ul class="nav-central-section">
                             <li>
                                 <a href="">
-                                    <img src='img/logodolar.png.png' alt="imagen de login gmail">
+                                    <img src="/img/logodolar.png.png" alt="imagen de login gmail">
                                 </a>
                             </li>
                             <li>
@@ -79,6 +79,7 @@
                 </section>
                 
                 <section class="boton-central">
+                
                     <input type="submit"  @click="ponerDatos"></input>
                     <span></span>
                 </section>
@@ -89,7 +90,7 @@
                 </section>
                 <section class="contenedor-exterior-tabla">
                   <section class="tabla-resultados">
-                    <table id="tabla" class="table table-light table-striped" style="width:100%;text-align: center">
+                    <table class="table table-light table-striped" style="width:100%;text-align: center">
                         <thead>
                         <tr>
                             <th>Fecha Incial</th>
@@ -100,10 +101,11 @@
                             <th>Strike</th>
                             <th>Monto USD</th>
                             <th>Banco</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="info of informacion" v-if="info.iDias>0">
+                        <tr v-for="(info,index) of informacion" v-if="info.iDias>0">
                             <td>
                             {{info.iFechaInicial}} 
                             </td>
@@ -129,6 +131,9 @@
                             <td style="text-align:center;color: #212529;font-size: 0.1px ;" >
                                 {{info.iBanco}}
                                 <input id="input-bancos" type="" list="inputbancos" v-model.number="info.iBanco">
+                            <td>
+                                    <button class="btn btn-danger btn-sm" @click="eliminar(index)">X</button>
+                            </td>
 
                                 <datalist id="inputbancos">
                                   <option value="AV VILLAS">
