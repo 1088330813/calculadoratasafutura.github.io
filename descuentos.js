@@ -2,16 +2,6 @@ const app = new Vue({
   el: "#app",
   data: {
     informacion: [
-      {
-        iFechaInicial:"",
-        iFechaFinal:"",
-        iDias: "",
-        iDevaluacion: "",
-        iSpot: "",
-        iStrike: "",
-        iMonto: 0,
-        iBanco:"",
-      },
     ],
     dateInicial: "",
     dateFinal: "",
@@ -69,8 +59,6 @@ cambiarTipoFechas(){
         },
     restarDias(a, b) {
     this.totalRestasFechas = Math.abs(a - b);
-    if (a > b) {
-
       this.diaInicial = new Date(this.dateInicial).getUTCDate();
       this.mesInicial = new Date(this.dateInicial).getUTCMonth();
       this.anyoInicial = new Date(this.dateInicial).getUTCFullYear();
@@ -86,7 +74,7 @@ cambiarTipoFechas(){
               day: '2-digit',
               month: '2-digit',
               year: '2-digit',});
-       
+    if (a > b) {      
         this.numDiasPositivo = this.totalRestasFechas / (1000 * 3600 * 24);
         this.calculationRateStrike(this.rateSpot, this.devaluation, this.numDiasPositivo );
         this.agregarNuevaInfo(this.fechaInicialMostrar,this.fechaFinalMostrar,this.numDiasPositivo, this.devaluation+"%", this.rateSpot, this.resultSDecimal)
@@ -113,17 +101,18 @@ cambiarTipoFechas(){
       }
     },
 agregarNuevaInfo(fechai,fechaf,dias, deva, tasaSp, tasaSt) {
-    this.informacion.push({
-    iFechaInicial:fechai,
-    iFechaFinal:fechaf,
-    iDias: dias,
-    iDevaluacion: deva,
-    iSpot: tasaSp,
-    iStrike: tasaSt,
-    iMonto: 0,
-    iBanco:"",
-    });
-    console.log(this.informacion)
+const dataObject = {
+  iFechaInicial:fechai,
+  iFechaFinal:fechaf,
+  iDias:dias,
+  iDevaluacion: deva,
+  iSpot: tasaSp,
+  iStrike: tasaSt,
+  iMonto: 0,
+  iBanco:"",
+  }
+    this.informacion.push(dataObject);
+    },
     localStorage.setItem('calculos-data',JSON.stringify(this.informacion));
     },
     created(){
