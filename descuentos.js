@@ -98,7 +98,6 @@ agregarNuevaInfo(fechai,fechaf,dias, deva, tasaSp, tasaSt) {
   console.log(dataObject)
     this.informacion.push(dataObject);
     console.log(this.informacion)
-    },
     localStorage.setItem('calculos-data',JSON.stringify(this.informacion));
     },
     created(){
@@ -120,3 +119,4 @@ agregarNuevaInfo(fechai,fechaf,dias, deva, tasaSp, tasaSt) {
       }
     },
     });
+
